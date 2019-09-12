@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "ionic-cordova",
+  "appId": "com.fotoapp.brainy",
+  "appName": "calc.brainy",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www"
