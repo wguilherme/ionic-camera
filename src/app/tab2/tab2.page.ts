@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { PhotoService } from '../services/photo.service';
 
 @Component({
   selector: 'app-tab2',
@@ -9,17 +9,21 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 })
 export class Tab2Page {
   currentImage: any;
-  photo: SafeResourceUrl;
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private camera: Camera, public photoService: PhotoService) { }
 
-  async takePicture() {
-    const image = await Plugins.Camera.getPhoto({
+  takePicture() {
+    const options: CameraOptions = {
       quality: 100,
-      allowEditing: false,
-      resultType: CameraResultType.DataUrl,
-      source: CameraSource.Camera
-    });
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
 
-    this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
+    this.camera.getPicture(options).then((imageData) => {
+      this.currentImage = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+      // Handle error
+      console.log("Camera issue:" + err);
+    });
   }
 }

@@ -12,6 +12,8 @@ import { AppComponent } from './app.component';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 
+import { IonicStorageModule } from '@ionic/storage';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -19,6 +21,7 @@ import { File } from '@ionic-native/file/ngx';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
+    IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,
